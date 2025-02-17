@@ -1,0 +1,161 @@
+<div class="container-fluid my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <div class="row">
+                        <div class="col-6 text-white">
+                            <strong>Employee Master</strong> 
+                        </div>
+                        <div class="col-6 text-end">
+                            <button class="btn btn-primary" (click)="openModel()">Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Contact No</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Gender</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data rows go here -->
+                            @for(item of employeeList; track $index){
+                                <tr>
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.name | uppercase}}</td>
+                                    <td>{{item.contactno}}</td>                
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.dept}}</td>
+                                    <td>{{item.gender}}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-primary" (click)="onEdit(item)"> Edit</button> ||
+                                        <button class="btn btn-danger" (click)="onDelete(item.id)"> Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add Employee</h4>
+          <button type="button" class="btn-close" (click)="closeModel()"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="card-body">
+                <form class="mb-4" [formGroup]="empForm" (ngSubmit)="onSaveEmp()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="employeeName" class="form-label">Employee Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="employeeName" placeholder="Enter employee name">
+                            <div class="text-danger">
+                                @if(empForm.controls['name'].errors?.['required'] && empForm.controls['name'].touched )
+                                {
+                                    <span>Name is Required</span>
+                                }
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contactNo" class="form-label">Contact No</label>
+                            <input type="text" class="form-control" formControlName="contactno" id="contactNo" placeholder="Enter contact number">
+                            <div class="text-danger">
+                                @if(empForm.controls['contactno'].errors?.['required'] && empForm.controls['contactno'].touched )
+                                {
+                                    <span>Contact No. is Required</span>
+                                }
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="emailId" class="form-label">Email</label>
+                            <input type="email" class="form-control" formControlName="email" id="emailId" placeholder="Enter email">
+                            <div class="text-danger">
+                                @if(empForm.controls['email'].errors?.['required'] && empForm.controls['email'].touched )
+                                {
+                                    <span>Email is Required</span>
+                                }
+                               
+                                @if(empForm.controls['email'].errors?.['email'])
+                                {
+                                    <span>Invaild Email</span>
+                                }
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="deptId" class="form-label">Department</label>
+                            <select id="deptId" class="form-select" formControlName="dept">
+                                <option selected>Select department</option>
+                                <!-- Department options -->
+                                <option value="HR">HR</option>
+                                <option value="Marking">Marking</option>
+                                <option value="Devlopment">Devlopment</option>
+                            </select>
+                            <div class="text-danger">
+                                @if(empForm.controls['dept'].errors?.['required'] && empForm.controls['dept'].touched )
+                                {
+                                    <span>Department is Required</span>
+                                }
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" formControlName="gender" class="form-select">
+                                <option selected>Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="text-danger">
+                                @if(empForm.controls['gender'].errors?.['required'] && empForm.controls['gender'].touched )
+                                {
+                                    <span>Gender is Required</span>
+                                }
+                               
+                            </div>
+                        </div>
+                    </div>
+                   
+                   
+                    <!-- Modal footer -->
+        <div class="modal-footer mt-5">
+            <button type="submit" class="btn btn-success" [disabled]="!empForm.valid">Submit</button>
+            <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
+          </div>
+                </form>
+            </div>
+        </div>
+  
+        
+  
+      </div>
+    </div>
+  </div>
+

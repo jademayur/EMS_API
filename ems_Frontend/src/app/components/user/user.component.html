@@ -1,0 +1,154 @@
+<div class="container-fluid my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <div class="row">
+                        <div class="col-6 text-white">
+                            <strong>User Master</strong> 
+                        </div>
+                        <div class="col-6 text-end">
+                            <button class="btn btn-primary" (click)="openModel()">Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(item of userList; track $index){
+                                <tr>
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.mobile}}</td>                
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.role}}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-primary" (click)="onEdit(item)"> Edit</button> ||
+                                        <button class="btn btn-danger" (click)="onDelete(item.id)"> Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                            <!-- Data rows go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>  
+</div>
+ 
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add User</h4>
+          <button type="button" class="btn-close" (click)="closeModel()" ></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form class="mb-4" [formGroup]="userForm" (ngSubmit)="onSaveUser()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="userName" class="form-label">User Name</label>
+                        <input type="text" class="form-control" formControlName="name" id="userName" placeholder="Enter employee name">
+                        <div class="text-danger">
+                            @if(userForm.controls['name'].errors?.['required'] && userForm.controls['name'].touched )
+                            {
+                                <span>Name is Required</span>
+                            }
+                        </div>
+                    </div>
+                   
+                   
+                    <div class="col-md-6">
+                        <label for="mobile" class="form-label">Mobile</label>
+                        <input type="text" class="form-control" formControlName="mobile" id="mobile" placeholder="Enter mobile number">
+                        <div class="text-danger">
+                            @if(userForm.controls['mobile'].errors?.['required'] && userForm.controls['mobile'].touched )
+                            {
+                                <span>Mobile No. is Required</span>
+                            }
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="emailId" class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="Enter email">
+                        <div class="text-danger">
+                            @if(userForm.controls['email'].errors?.['required'] && userForm.controls['email'].touched )
+                            {
+                                <span>Email is Required</span>
+                            }
+                            @if(userForm.controls['email'].errors?.['email'])
+                            {
+                                <span>Invaild Email</span>
+                            }
+                        </div>
+                    </div>
+                  
+                    
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" formControlName="password" id="password" placeholder="Enter password">
+                        <div class="text-danger">
+                            @if(userForm.controls['password'].errors?.['required'] && userForm.controls['password'].touched )
+                            {
+                                <span>Password is Required</span>
+                            }
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <label for="role" class="form-label">Role</label>
+                        <select id="role" class="form-select" formControlName="role">
+                            <option selected>Select Role</option>
+                            <option value="Male">Admin</option>
+                            <option value="Female">Employee</option>
+                            <option value="Other">User</option>
+                        </select>
+                        <div class="text-danger">
+                            @if(userForm.controls['role'].errors?.['required'] && userForm.controls['role'].touched )
+                            {
+                                <span>Role is Required</span>
+                            }
+                        </div>
+                    </div>
+                   
+                   
+                    
+                </div>
+                <div class="modal-footer mt-5">
+                    <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="closeModel()" >Close</button>
+                </div>
+            </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+  

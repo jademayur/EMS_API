@@ -1,0 +1,55 @@
+<style>
+    .main {
+      height: 100%;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }    
+</style>
+<div class="main">
+    <div class="container login-container">
+        <div class="card login-card shadow p-4" style="width: 30rem;">
+          <h3 class="text-center mb-4">Login</h3>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <!-- Email input -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" name="email" [(ngModel)]="loginObj.email" formControlName="email" class="form-control" id="email" placeholder="Enter your email">
+              <div class="text-danger">
+                @if(loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched )
+                {
+                    <span>Email is Required</span>
+                }
+                @if(loginForm.controls['email'].errors?.['email'])
+                {
+                    <span>Invaild Email</span>
+                }
+
+               
+              </div>
+            </div>
+            <!-- Password input -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password"  [(ngModel)]="loginObj.password" formControlName="password" class="form-control" id="password" placeholder="Enter your password">
+              <div class="text-danger">
+                @if(loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched )
+                {
+                    <span>Password is Required</span>
+                }
+               
+              </div>
+            </div>
+            <!-- Submit button -->
+            <div class="d-grid gap-2">
+              <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+                
+        </div>
+    </div>
+</div>
