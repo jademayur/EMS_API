@@ -18,13 +18,13 @@
             <!-- Email input -->
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" name="email" [(ngModel)]="loginObj.email" formControlName="email" class="form-control" id="email" placeholder="Enter your email">
+              <input type="email" name="email" formControlName="username" class="form-control" id="email" placeholder="Enter your email">
               <div class="text-danger">
-                @if(loginForm.controls['email'].errors?.['required'] && loginForm.controls['email'].touched )
+                @if(loginForm.controls['username'].errors?.['required'] && loginForm.controls['username'].touched )
                 {
                     <span>Email is Required</span>
                 }
-                @if(loginForm.controls['email'].errors?.['email'])
+                @if(loginForm.controls['username'].errors?.['email'])
                 {
                     <span>Invaild Email</span>
                 }
@@ -35,7 +35,7 @@
             <!-- Password input -->
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" name="password"  [(ngModel)]="loginObj.password" formControlName="password" class="form-control" id="password" placeholder="Enter your password">
+              <input type="password" name="password"  formControlName="password" class="form-control" id="password" placeholder="Enter your password">
               <div class="text-danger">
                 @if(loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched )
                 {

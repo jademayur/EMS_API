@@ -17,8 +17,8 @@
         <!-- Right-aligned section: User name and Log off button -->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item d-flex align-items-center">
-            <span class="navbar-text me-2 text-dark">Welcome, John Doe</span>
-            <button class="btn btn-primary btn-sm" type="button">Log off</button>
+            <span class="navbar-text me-2 text-dark">User Name: {{user.name}} || Role: {{user.role}}</span>
+            <button class="btn btn-primary btn-sm" type="button" (click)="logout()">Log off</button>
           </li>
         </ul>
       </div>

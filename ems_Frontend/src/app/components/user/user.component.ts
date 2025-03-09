@@ -12,8 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class UserComponent {
 
-
-
+  
   userList : User[] = [];
   userService  = inject (UserService)
   userForm:FormGroup = new FormGroup({ })
@@ -23,6 +22,7 @@ constructor(private fb: FormBuilder){}
 ngOnInit(): void {
   this.setFormState();
   this.getUser();
+ // this.user = this.userService.getUser();  
 }
 
 openModel()
