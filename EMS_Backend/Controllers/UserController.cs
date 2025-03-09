@@ -23,11 +23,11 @@ namespace EmployeeMangementSystem.Controllers
            var user = await _userRepository.GetUsers();
             return Ok(user);
         }
-        [HttpPost]
-        public User Login([FromBody] LoginRequest loginModel)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login ([FromBody] LoginRequest loginModel)
         {
-            var result = _userRepository.login(loginModel);
-            return result;
+            var result = await _userRepository.login(loginModel);
+            return Ok(result);
         }
 
         [HttpPost("AddUser")]
